@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
@@ -53,9 +55,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		while(allItems[index] == null) {
 			index = StdRandom.uniform(no);
 		}
-		Item out = allItems[index];
-		allItems[index] = null;
 		no--;
+		Item out = allItems[index];
+		allItems[index] = allItems[no];
+		allItems[no] = null;
 		return out;
 	}
 	
@@ -65,6 +68,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			throw new NoSuchElementException();
 		}
 		int index = StdRandom.uniform(no);
+		while(allItems[index] == null) {
+			index = StdRandom.uniform(no);
+		}
 		return allItems[index];
 	}
 	
@@ -114,18 +120,22 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	public static void main(String[] args) {
 		// unit testing (optional)
 		RandomizedQueue<String> test = new RandomizedQueue<String>();
-		test.enqueue("AA");
-		System.out.println("size:" + test.no);
-		System.out.println("Empty:" + test.isEmpty());
-		test.enqueue("BB");
-		test.enqueue("CC");
-		test.enqueue("DD");
-		System.out.println("size:" + test.no);
-		System.out.println("Empty:" + test.isEmpty());
-		Iterator<String> sb = test.iterator();
-		System.out.println("Iterator:" + sb.next());
-		System.out.println("Iterator:" + sb.next());
-		System.out.println("Iterator:" + sb.next());
-		System.out.println("Iterator:" + sb.next());
+		/*
+		while(!StdIn.isEmpty()) {
+			String input = StdIn.readString();
+			test.enqueue("A");
+			StdOut.print(input);
+		}
+		*/
+		test.enqueue("A");
+		StdOut.print(test.size());
+		//StdOut.print(test.isEmpty());
+		/*
+		for (int i = 0; i < 2; i++) {
+			String result = test.dequeue();
+			StdOut.println(result);
+		}
+		*/
+
 	}
 }
